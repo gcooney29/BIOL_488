@@ -30,3 +30,11 @@ legend("topright", inset=c(-.37, -.087),
        lty = c(1, 4, 1, 2, 3), lwd = c(2.5, 1.5, 1.5, 1.5, 1.5), cex = 0.69, 
        ncol = 1, text.width = 3.5, box.lty = 0)
 
+###conserved weight analysis###
+#read in data
+wc <- read.csv("weight_conserved.csv")
+
+#download ggplot2
+install.packages("ggplot2")
+library(ggplot2)
+
