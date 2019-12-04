@@ -34,7 +34,27 @@ legend("topright", inset=c(-.37, -.087),
 #read in data
 wc <- read.csv("weight_conserved.csv")
 
-#download ggplot2
+#download ggplot2 and dplyr
 install.packages("ggplot2")
+install.packages("dplyr")
 library(ggplot2)
+library(dplyr)
+
+#multiply columns by 100 to get percentage
+wc$Control <- wc$Control *100
+wc$Biochar <- wc$Biochar *100
+wc$D_Earth <- wc$D_Earth *100
+
+#calculate mean and sd
+wc_sum <- data.frame(name = c("Control", "D_Earth", "Biochar"),
+                     mean = sapply(wc, mean, na.rm = TRUE),
+                     sd = sapply(wc, sd, na.rm = TRUE))
+
+#barplot with error bars
+ggplot(wc_sum) +
+  geom_bar(aes(x=name, y=mean), stat="identity", alpha=0.7, width = .5) +
+  geom_errorbar( aes(x=name, ymin=mean-sd, ymax=mean+sd), width=0.2, 
+                 colour="black", alpha=0.9, size=.8) +
+  xlab("Treatment Type") + ylab("Weight Conserved (percentage)") +
+  ylim(0, 115) + theme_bw()
 
