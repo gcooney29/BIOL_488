@@ -56,5 +56,15 @@ ggplot(wc_sum) +
   geom_errorbar( aes(x=name, ymin=mean-sd, ymax=mean+sd), width=0.2, 
                  colour="black", alpha=0.9, size=.8) +
   xlab("Treatment Type") + ylab("Weight Conserved (percentage)") +
-  ylim(0, 115) + theme_bw()
+  ylim(000, 115) + theme_bw() +
+  theme(axis.title.x = element_text(margin = margin(l = 0, r = 0, t = 20, b = 0),
+                                    face = "bold")) + 
+  theme(axis.title.y = element_text(margin = margin(l = 0, r = 20, t = 0, b = 0),
+                                    face = "bold", )) +
+  theme(axis.ticks.length = unit(.2, "cm"), 
+        axis.text.x = element_text(vjust = -3), 
+        axis.text.y = element_text(hjust = -.1), 
+        panel.border = element_rect(colour = "black", fill=NA, size=.7)) 
+
+
 
