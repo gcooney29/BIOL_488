@@ -60,11 +60,28 @@ ggplot(wc_sum) +
   theme(axis.title.x = element_text(margin = margin(l = 0, r = 0, t = 20, b = 0),
                                     face = "bold")) + 
   theme(axis.title.y = element_text(margin = margin(l = 0, r = 20, t = 0, b = 0),
-                                    face = "bold", )) +
+                                    face = "bold")) +
   theme(axis.ticks.length = unit(.2, "cm"), 
         axis.text.x = element_text(vjust = -3), 
         axis.text.y = element_text(hjust = -.1), 
         panel.border = element_rect(colour = "black", fill=NA, size=.7)) 
 
 
+#ANOVA
+DS <- read.csv("days_survived.csv")
 
+#group data (mean, sd)
+group_by(DS, Treatment) %>%
+  summarise(
+    count = n(),
+    mean = mean(days_survived, na.rm = TRUE),
+    sd = sd(days_survived, na.rm = TRUE)
+  )
+
+#Compute the analysis of variance
+DS.aov <- aov(days_survived ~ Treatment, data = DS)
+#Summary of the analysis
+summary(DS.aov)
+
+#Tukey test
+TukeyHSD(DS.aov)
