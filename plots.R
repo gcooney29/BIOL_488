@@ -85,3 +85,22 @@ summary(DS.aov)
 
 #Tukey test
 TukeyHSD(DS.aov)
+
+#boxplot with Tukey results
+DS$posthoc[DS$Treatment == "Baking_Soda"] <- "a"
+DS$posthoc[DS$Treatment == "Biochar"] <- "b"
+DS$posthoc[DS$Treatment == "Control"] <- "b"
+DS$posthoc[DS$Treatment == "Dia_Earth"] <- "b"
+DS$posthoc[DS$Treatment == "Vinegar"] <- "c"
+
+boxplot(DS$days_survived ~ DS$Treatment, ylab = "Days Survived",
+        xlab = "Treatment", names = c("Baking Soda", "Biochar",
+                                      "Control", " ",
+                                      "Vinegar"), font.lab = 2)
+mtext(text= "Diatomaceous\nEarth",
+      side = 1, line = c(2), at = c(4))
+text(x= 1, y= 10, labels= "a")
+text(x= 2, y= 15, labels= "b")
+text(x= 3, y= 15, labels= "b")
+text(x= 4, y= 15, labels= "b")
+text(x= 5, y= 1, labels= "c")
