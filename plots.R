@@ -37,8 +37,10 @@ wc <- read.csv("weight_conserved.csv")
 #download ggplot2 and dplyr
 install.packages("ggplot2")
 install.packages("dplyr")
+install.packages("car")
 library(ggplot2)
 library(dplyr)
+library(car)
 
 #multiply columns by 100 to get percentage
 wc$Control <- wc$Control *100
@@ -104,3 +106,14 @@ text(x= 2, y= 15, labels= "b")
 text(x= 3, y= 15, labels= "b")
 text(x= 4, y= 15, labels= "b")
 text(x= 5, y= 1, labels= "c")
+
+#levene test
+leveneTest(days_survived ~ Treatment, data = DS) #no homogeneity
+
+#replace ANOVA with Kruskal-Wallis test
+kruskal.test(days_survived ~ Treatment, data = DS)
+
+#replace Tukey with Dunn Test
+dunn.test::dunn.test(DS$days_survived, DS$Treatment) 
+#boxplot stays the same, all significant results are the same
+
